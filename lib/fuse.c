@@ -118,11 +118,11 @@ struct node_table {
 };
 
 #define container_of(ptr, type, member) ({                              \
-                        const typeof( ((type *)0)->member ) *__mptr = (ptr); \
-                        (type *)( (char *)__mptr - offsetof(type,member) );})
+			const typeof( ((type *)0)->member ) *__mptr = (ptr); \
+			(type *)( (char *)__mptr - offsetof(type,member) );})
 
 #define list_entry(ptr, type, member)           \
-        container_of(ptr, type, member)
+	container_of(ptr, type, member)
 
 struct list_head {
 	struct list_head *next;
@@ -4320,7 +4320,7 @@ static int fuse_session_loop_remember(struct fuse *f)
 	time_t next_clean;
 	struct fuse_chan *ch = fuse_session_chan(se);
 	struct pollfd fds = {
-		.fd = fuse_chan_fd(ch),
+		.fd = ch->fd,
 		.events = POLLIN
 	};
 	struct fuse_buf fbuf = {
@@ -4831,4 +4831,3 @@ void fuse_destroy(struct fuse *f)
 	free(f);
 	fuse_delete_context_key();
 }
-
